@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -6,20 +6,20 @@ using System.IO;
 
 class Program
 {
-    // Lista för att lagra spelare
+    // Lista fÃ¶r att lagra spelare
     static List<Player> players = new List<Player>();
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Välkommen till Scout Reports ND!");
+        Console.WriteLine("VÃ¤lkommen till Scout Reports ND!");
 
-        // Läs in spelardata från JSON vid programmets start
+        // LÃ¤s in spelardata frÃ¥n JSON vid programmets start
         LoadPlayersFromJson();
 
         // Inloggningsmeny
-        Console.WriteLine("Välj din roll:");
+        Console.WriteLine("VÃ¤lj din roll:");
         Console.WriteLine("1. Scout");
-        Console.WriteLine("2. Tränare");
+        Console.WriteLine("2. TrÃ¤nare");
         string roleChoice = Console.ReadLine();
 
         // Hantera inloggning och navigera till respektive meny
@@ -27,7 +27,7 @@ class Program
         {
             ShowScoutMenu();
         }
-        else if (roleChoice == "2" && Login("Tränare"))
+        else if (roleChoice == "2" && Login("TrÃ¤nare"))
         {
             ShowCoachMenu();
         }
@@ -40,17 +40,17 @@ class Program
         SavePlayersToJson();
     }
 
-    // Metod för att hantera inloggning
+    // Metod fÃ¶r att hantera inloggning
     static bool Login(string role)
     {
-        // Bestäm rätt användarnamn och lösenord beroende på roll
-        string correctUsername = role == "Scout" ? "Scout" : "Tränare";
+        // BestÃ¤m rÃ¤tt anvÃ¤ndarnamn och lÃ¶senord beroende pÃ¥ roll
+        string correctUsername = role == "Scout" ? "Scout" : "TrÃ¤nare";
         string correctPassword = role == "Scout" ? "scout123" : "coach123";
 
-        Console.WriteLine($"Ange användarnamn för {role}:");
+        Console.WriteLine($"Ange anvÃ¤ndarnamn fÃ¶r {role}:");
         string username = Console.ReadLine();
 
-        Console.WriteLine("Ange lösenord:");
+        Console.WriteLine("Ange lÃ¶senord:");
         string password = Console.ReadLine();
 
         if (username == correctUsername && password == correctPassword)
@@ -60,7 +60,7 @@ class Program
         }
         else
         {
-            Console.WriteLine("Felaktigt användarnamn eller lösenord.");
+            Console.WriteLine("Felaktigt anvÃ¤ndarnamn eller lÃ¶senord.");
             return false;
         }
     }
@@ -72,28 +72,28 @@ class Program
         while (!exit)
         {
             Console.WriteLine("\nScout-meny:");
-            Console.WriteLine("1. Lägg till ny spelare");
-            Console.WriteLine("2. Skapa rapport för spelare");
-            Console.WriteLine("3. Se lista över spelare");
+            Console.WriteLine("1. LÃ¤gg till ny spelare");
+            Console.WriteLine("2. Skapa rapport fÃ¶r spelare");
+            Console.WriteLine("3. Se lista Ã¶ver spelare");
             Console.WriteLine("4. Logga ut");
 
             string choice = Console.ReadLine();
 
-            // Hantera användarens val
+            // Hantera anvÃ¤ndarens val
             switch (choice)
             {
                 case "1":
-                    // Funktionen för att lägga till en ny spelare
+                    // Funktionen fÃ¶r att lÃ¤gga till en ny spelare
                     AddPlayer();
                     break;
 
                 case "2":
-                    // Funktionen för att skapa en rapport för en spelare
+                    // Funktionen fÃ¶r att skapa en rapport fÃ¶r en spelare
                     CreateReport();
                     break;
 
                 case "3":
-                    // Funktionen för att visa en lista över spelare
+                    // Funktionen fÃ¶r att visa en lista Ã¶ver spelare
                     ListPlayersForScouts();
                     break;
 
@@ -103,21 +103,21 @@ class Program
                     break;
 
                 default:
-                    Console.WriteLine("Felaktigt val, försök igen.");
+                    Console.WriteLine("Felaktigt val, fÃ¶rsÃ¶k igen.");
                     break;
             }
         }
     }
 
-    // Meny för tränare
+    // Meny fÃ¶r trÃ¤nare
     static void ShowCoachMenu()
     {
         bool exit = false;
         while (!exit)
         {
-            Console.WriteLine("\nTränar-meny:");
-            Console.WriteLine("1. Visa lista över spelare");
-            Console.WriteLine("2. Sök och filtrera spelare");
+            Console.WriteLine("\nTrÃ¤nar-meny:");
+            Console.WriteLine("1. Visa lista Ã¶ver spelare");
+            Console.WriteLine("2. SÃ¶k och filtrera spelare");
             Console.WriteLine("3. Hantera bevakningslista");
             Console.WriteLine("4. Logga ut");
 
@@ -139,25 +139,25 @@ class Program
                     Console.WriteLine("Loggar ut...");
                     break;
                 default:
-                    Console.WriteLine("Felaktigt val, försök igen.");
+                    Console.WriteLine("Felaktigt val, fÃ¶rsÃ¶k igen.");
                     break;
             }
         }
     }
 
-    // Lägg till en ny spelare i listan
+    // LÃ¤gg till en ny spelare i listan
     static void AddPlayer()
     {
         Console.WriteLine("Ange spelarens namn:");
         string name = Console.ReadLine();
 
-        Console.WriteLine("Ange spelarens ålder:");
+        Console.WriteLine("Ange spelarens Ã¥lder:");
         int age = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Ange spelarens nationalitet:");
         string nationality = Console.ReadLine();
 
-        Console.WriteLine("Skriv in spelarens längd:");
+        Console.WriteLine("Skriv in spelarens lÃ¤ngd:");
         int height = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Skriv in spelarens vikt:");
@@ -172,7 +172,7 @@ class Program
         Console.WriteLine("Skriv in spelarens nuvarande liga:");
         string league = Console.ReadLine();
 
-        // Skapa en ny spelare och lägg till i listan
+        // Skapa en ny spelare och lÃ¤gg till i listan
         Player newPlayer = new Player
         {
             Name = name,
@@ -193,10 +193,10 @@ class Program
         SavePlayersToJson();
     }
 
-    // // Skapa en ny rapport för en spelare
+    // // Skapa en ny rapport fÃ¶r en spelare
     static void CreateReport()
     {
-        Console.WriteLine("Ange spelarens namn för att skapa en rapport:");
+        Console.WriteLine("Ange spelarens namn fÃ¶r att skapa en rapport:");
         string name = Console.ReadLine();
 
         // Hitta spelaren i listan
@@ -204,37 +204,37 @@ class Program
 
         if (player != null)
         {
-            Console.WriteLine("Ange betyg för snabbhet (1-10):");
+            Console.WriteLine("Ange betyg fÃ¶r snabbhet (1-10):");
             int speed = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för uthållighet (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r uthÃ¥llighet (1-10)");
             int stamina = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för styrka (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r styrka (1-10)");
             int strength = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för bollkontroll (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r bollkontroll (1-10)");
             int ballcontrol = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för passningar (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r passningar (1-10)");
             int passing = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för dribblingar (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r dribblingar (1-10)");
             int dribbling = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för avslut (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r avslut (1-10)");
             int finishing = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för positionering (1-10)");
+            Console.WriteLine("Ange betyg fÃ¶r positionering (1-10)");
             int positioning = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Ange betyg för spelintelligens");
+            Console.WriteLine("Ange betyg fÃ¶r spelintelligens");
             int gameintelligence = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Ange en kort observation om spelaren:");
             string observation = Console.ReadLine();
 
-            // Skapa rapport och lägg till i spelarens rapportlista
+            // Skapa rapport och lÃ¤gg till i spelarens rapportlista
             Report report = new Report
             {
                 Speed = speed,
@@ -251,7 +251,7 @@ class Program
 
             player.Reports.Add(report);
 
-            Console.WriteLine("Raport har lagts till för spelaren.");
+            Console.WriteLine("Raport har lagts till fÃ¶r spelaren.");
 
             // Spara data efter att en rapport har lagts till
             SavePlayersToJson();
@@ -296,15 +296,15 @@ class Program
         public string Observation { get; set; }
     }
 
-    // Metod för att lista spelare med grundläggande info och snittbetyg
+    // Metod fÃ¶r att lista spelare med grundlÃ¤ggande info och snittbetyg
     static void ListPlayersForScouts()
     {
         if (players.Count == 0)
         {
-            Console.WriteLine("Inga spelare har lagts till ännu.");
+            Console.WriteLine("Inga spelare har lagts till Ã¤nnu.");
         }
 
-        Console.WriteLine("Lista över spelare:");
+        Console.WriteLine("Lista Ã¶ver spelare:");
         for (int i = 0; i < players.Count; i++)
         {
             var player = players[i];
@@ -312,10 +312,10 @@ class Program
             ? player.Reports.Average(r => (r.Speed + r.Stamina + r.Strength + r.BallControl + r.Passing + r.Dribbling + r.Finishing + r.Positioning + r.GameIntelligence) / 9.0)
             : 0;
 
-            Console.WriteLine($"{i + 1}. Namn: {player.Name}, Ålder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}, Snittbetyg: {averageRating:F1}");
+            Console.WriteLine($"{i + 1}. Namn: {player.Name}, Ã…lder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}, Snittbetyg: {averageRating:F1}");
         }
 
-        Console.WriteLine("Ange numret på spelaren du vill se mer information om, eller tryck Enter för att gå tillbaka:");
+        Console.WriteLine("Ange numret pÃ¥ spelaren du vill se mer information om, eller tryck Enter fÃ¶r att gÃ¥ tillbaka:");
         string input = Console.ReadLine();
 
         if (int.TryParse(input, out int playerIndex) && playerIndex > 0 && playerIndex <= players.Count)
@@ -324,16 +324,16 @@ class Program
         }
     }
 
-    // Metod för att lista spelare för tränare
+    // Metod fÃ¶r att lista spelare fÃ¶r trÃ¤nare
     static void ListPlayersForCoach()
     {
         if (players.Count == 0)
         {
-            Console.WriteLine("Inga spelare har lagts till ännu.");
+            Console.WriteLine("Inga spelare har lagts till Ã¤nnu.");
             return;
         }
 
-        Console.WriteLine("Lista över spelare för tränaren:");
+        Console.WriteLine("Lista Ã¶ver spelare fÃ¶r trÃ¤naren:");
         for (int i = 0; i < players.Count; i++)
         {
             var player = players[i];
@@ -341,10 +341,10 @@ class Program
                 ? player.Reports.Average(r => (r.Speed + r.Stamina + r.Strength + r.BallControl + r.Passing + r.Dribbling + r.Finishing + r.Positioning + r.GameIntelligence) / 9.0)
                 : 0;
 
-            Console.WriteLine($"{i + 1}. Namn: {player.Name}, Ålder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}, Snittbetyg: {averageRating:F1}");
+            Console.WriteLine($"{i + 1}. Namn: {player.Name}, Ã…lder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}, Snittbetyg: {averageRating:F1}");
         }
 
-        Console.WriteLine("Ange numret på spelaren du vill se mer information om, eller tryck Enter för att gå tillbaka:");
+        Console.WriteLine("Ange numret pÃ¥ spelaren du vill se mer information om, eller tryck Enter fÃ¶r att gÃ¥ tillbaka:");
         string input = Console.ReadLine();
 
         if (int.TryParse(input, out int playerIndex) && playerIndex > 0 && playerIndex <= players.Count)
@@ -353,22 +353,22 @@ class Program
         }
     }
 
-    // Metod för att visa detaljerad rapport för en specifik spelare
+    // Metod fÃ¶r att visa detaljerad rapport fÃ¶r en specifik spelare
     static void ShowPlayerDetails(Player player)
     {
-        Console.WriteLine($"\nDetaljerad rapport för {player.Name}:");
-        Console.WriteLine($"Ålder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}");
+        Console.WriteLine($"\nDetaljerad rapport fÃ¶r {player.Name}:");
+        Console.WriteLine($"Ã…lder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}");
         Console.WriteLine("Rapporter:");
 
         if (player.Reports.Count == 0)
         {
-            Console.WriteLine("Ingen rapport tillgänglig.");
+            Console.WriteLine("Ingen rapport tillgÃ¤nglig.");
         }
         else
         {
             foreach (var report in player.Reports)
             {
-                Console.WriteLine($"- Snabbhet: {report.Speed}, Uthållighet: {report.Stamina}, Styrka: {report.Strength}, Bollkontroll: {report.BallControl}, Passningar: {report.Passing}, Dribblingar: {report.Dribbling}, Avslut: {report.Finishing}, Positionering: {report.Positioning}, Spelintelligens: {report.GameIntelligence}");
+                Console.WriteLine($"- Snabbhet: {report.Speed}, UthÃ¥llighet: {report.Stamina}, Styrka: {report.Strength}, Bollkontroll: {report.BallControl}, Passningar: {report.Passing}, Dribblingar: {report.Dribbling}, Avslut: {report.Finishing}, Positionering: {report.Positioning}, Spelintelligens: {report.GameIntelligence}");
                 Console.WriteLine($"  Observation: {report.Observation}");
                 Console.WriteLine();
             }
@@ -383,14 +383,14 @@ class Program
         Console.WriteLine("Spelardata har sparats.");
     }
 
-    // Ladda data från JSON-fil
+    // Ladda data frÃ¥n JSON-fil
     static void LoadPlayersFromJson()
     {
         if (File.Exists("players.json"))
         {
             string json = File.ReadAllText("players.json");
             players = JsonSerializer.Deserialize<List<Player>>(json) ?? new List<Player>();
-            Console.WriteLine("Spelardata har lästs in.");
+            Console.WriteLine("Spelardata har lÃ¤sts in.");
         }
         else
         {
