@@ -1,46 +1,26 @@
+using System.Collections.Generic;
 using System.IO;
-using Microsoft.Data.SqlClient; // För SQL-anslutningar
-using System;
+using System.Text.Json;
 
-/*class Program
+// Spara data till JSON-fil
+static void SavePlayersToJson()
 {
-    static void Main(string[] args)
+    string json = JsonSerializer.Serialize(players, new JsonSerializerOptions { WriteIndented = true });
+    File.WriteAllText("players.json", json);
+    Console.WriteLine("Spelardata har sparats.");
+}
+
+// Ladda data från JSON-fil
+static void LoadPlayersFromJson()
+{
+    if (File.Exists("players.json"))
     {
-        string connectionString = "Server=gondolin667.org;Database=yhstudent72_ScoutingReportsND;User Id=yhstudent72;Password=tpgYYzkb7U$g;Encrypt=True;TrustServerCertificate=True;";
-
-
-        try
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                Console.WriteLine("Anslutningen till databasen lyckades!");
-            }
-        }
-        catch (SqlException ex)
-        {
-            Console.WriteLine($"SQL Error: {ex.Message}");
-            Console.WriteLine("Felsökningsdetaljer:");
-            foreach (SqlError error in ex.Errors)
-            {
-                Console.WriteLine($"- Felnummer: {error.Number}, Meddelande: {error.Message}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Anslutningen misslyckades: {ex.Message}");
-        }
+        string json = File.ReadAllText("players.json");
+        players = JsonSerializer.Deserialize<List<Player>>(json) ?? new List<Player>();
+        Console.WriteLine("Spelardata har lästs in.");
     }
-}*/
-
-public static class DataManager
-{
-    // Anslutningssträng för databasen
-    private static string connectionString = "Server=gondolin667.org;Database=yhstudent72_ScoutingReportsND;User Id=yhstudent72;Password=tpgYYzkb7U$g;Encrypt=True;TrustServerCertificate=True;";
-
-    // Metod för att skapa och returnera en SQL-anslutning
-    public static SqlConnection GetConnection()
+    else
     {
-        return new SqlConnection(connectionString);
+        Console.WriteLine("Ingen tidigare data hittades.");
     }
 }
