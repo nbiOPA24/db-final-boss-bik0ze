@@ -91,8 +91,6 @@ static void AddPlayer()
 
     Console.WriteLine($"{name} har lagts till i listan.");
 
-    // Spara data efter att spelaren har lagts till
-    SavePlayersToJson();
 }
 
 // // Skapa en ny rapport för en spelare
@@ -155,8 +153,6 @@ static void CreateReport()
 
         Console.WriteLine("Raport har lagts till för spelaren.");
 
-        // Spara data efter att en rapport har lagts till
-        SavePlayersToJson();
     }
     else
     {

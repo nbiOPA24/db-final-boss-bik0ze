@@ -44,8 +44,6 @@ class Program
     {
         Console.WriteLine("Välkommen till Scout Reports ND!");
 
-        // Läs in spelardata från JSON vid programmets start
-        LoadPlayersFromJson();
 
         // Inloggningsmeny
         Console.WriteLine("Välj din roll:");
@@ -67,8 +65,6 @@ class Program
             Console.WriteLine("Felaktigt val eller inloggningsuppgifter. Programmet avslutas.");
         }
 
-        // Spara spelardata till JSON innan programmet avslutas
-        SavePlayersToJson();
     }
 
     // Metod för att hantera inloggning
