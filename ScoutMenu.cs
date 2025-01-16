@@ -45,8 +45,6 @@ static void ShowScoutMenu()
     }
 }
 
-
-
 // Lägg till en ny spelare i listan
 static void AddPlayer()
 {
@@ -74,26 +72,40 @@ static void AddPlayer()
     Console.WriteLine("Skriv in spelarens nuvarande liga:");
     string league = Console.ReadLine();
 
-    // Skapa en ny spelare och lägg till i listan
-    Player newPlayer = new Player
+    // SQL-fråga för att lägga till spelaren
+    string query = "INSERT INTO Players (Name, Age, Position, Team, League) VALUES (@Name, @Age, @Position, @Team, @League)";
+
+    try
     {
-        Name = name,
-        Age = age,
-        Nationality = nationality,
-        Height = height,
-        Weight = weight,
-        Position = position,
-        Team = team,
-        League = league
-    };
+        // Skapa en anslutning till databasen
+        using (SqlConnection connection = DataManager.GetConnection())
+        {
+            connection.Open();
 
-    players.Add(newPlayer);
+            // Skapa ett SQL-kommando och tilldela parametrar
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Name", name);
+                command.Parameters.AddWithValue("@Age", age);
+                command.Parameters.AddWithValue("@Position", position);
+                command.Parameters.AddWithValue("@Team", team);
+                command.Parameters.AddWithValue("@League", league);
 
-    Console.WriteLine($"{name} har lagts till i listan.");
-
+                // Kör kommandot
+                command.ExecuteNonQuery();
+                Console.WriteLine("Spelaren har lagts till i databasen!");
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Fel vid inmatning av data: {ex.Message}");
+    }
 }
 
-// // Skapa en ny rapport för en spelare
+
+
+// Skapa en ny rapport för en spelare
 static void CreateReport()
 {
     Console.WriteLine("Ange spelarens namn för att skapa en rapport:");
@@ -163,27 +175,32 @@ static void CreateReport()
 // Metod för att lista spelare med grundläggande info och snittbetyg
 static void ListPlayersForScouts()
 {
-    if (players.Count == 0)
+    string query = "SELECT Name, Age, Position, Team, League FROM Players";
+
+    try
     {
-        Console.WriteLine("Inga spelare har lagts till ännu.");
+        // Skapa en anslutning till databasen
+        using (SqlConnection connection = DataManager.GetConnection())
+        {
+            connection.Open();
+
+            // Skapa och kör ett SQL-kommando
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    Console.WriteLine("Lista över spelare:");
+                    while (reader.Read())
+                    {
+                        // Läs och visa data från databasen
+                        Console.WriteLine($"Namn: {reader["Name"]}, Ålder: {reader["Age"]}, Position: {reader["Position"]}, Lag: {reader["Team"]}, Liga: {reader["League"]}");
+                    }
+                }
+            }
+        }
     }
-
-    Console.WriteLine("Lista över spelare:");
-    for (int i = 0; i < players.Count; i++)
+    catch (Exception ex)
     {
-        var player = players[i];
-        double averageRating = player.Reports.Count > 0
-        ? player.Reports.Average(r => (r.Speed + r.Stamina + r.Strength + r.BallControl + r.Passing + r.Dribbling + r.Finishing + r.Positioning + r.GameIntelligence) / 9.0)
-        : 0;
-
-        Console.WriteLine($"{i + 1}. Namn: {player.Name}, Ålder: {player.Age}, Position: {player.Position}, Lag: {player.Team}, Liga: {player.League}, Snittbetyg: {averageRating:F1}");
-    }
-
-    Console.WriteLine("Ange numret på spelaren du vill se mer information om, eller tryck Enter för att gå tillbaka:");
-    string input = Console.ReadLine();
-
-    if (int.TryParse(input, out int playerIndex) && playerIndex > 0 && playerIndex <= players.Count)
-    {
-        ShowPlayerDetails(players[playerIndex - 1]);
+        Console.WriteLine($"Fel vid hämtning av data: {ex.Message}");
     }
 }

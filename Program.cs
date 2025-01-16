@@ -56,3 +56,4 @@ class Program
             return false;
         }
     }
+}

@@ -1,5 +1,5 @@
 using System.IO;
-using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient; // För SQL-anslutningar
 using System;
 
 /*class Program
@@ -33,3 +33,14 @@ using System;
     }
 }*/
 
+public static class DataManager
+{
+    // Anslutningssträng för databasen
+    private static string connectionString = "Server=gondolin667.org;Database=yhstudent72_ScoutingReportsND;User Id=yhstudent72;Password=tpgYYzkb7U$g;Encrypt=True;TrustServerCertificate=True;";
+
+    // Metod för att skapa och returnera en SQL-anslutning
+    public static SqlConnection GetConnection()
+    {
+        return new SqlConnection(connectionString);
+    }
+}
