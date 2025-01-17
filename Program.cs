@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Data.SqlClient;
 
 class Program
 {
@@ -18,11 +19,11 @@ class Program
         Console.WriteLine("2. Tränare");
         string roleChoice = Console.ReadLine();
 
-        if (roleChoice == "1" && Login("Scout"))
+        if (roleChoice == "1" && Login("Scouts"))
         {
             ScoutMenu.ShowScoutMenu();
         }
-        else if (roleChoice == "2" && Login("Tränare"))
+        else if (roleChoice == "2" && Login("Coaches"))
         {
             CoachMenu.ShowCoachMenu();
         }
@@ -32,26 +33,37 @@ class Program
         }
     }
 
-    static bool Login(string role)
+    static bool Login(string tableName)
     {
-        Console.WriteLine($"Ange användarnamn för {role}:");
-        string username = Console.ReadLine();
+        Console.WriteLine($"Ange användarnamn för {tableName}:");
+        string username = Console.ReadLine().Trim();
 
         Console.WriteLine("Ange lösenord:");
-        string password = Console.ReadLine();
+        string password = Console.ReadLine().Trim();
 
-        string correctUsername = role == "Scout" ? "Scout" : "Tränare";
-        string correctPassword = role == "Scout" ? "scout123" : "coach123";
+        using (var connection = DataManager.GetConnection())
+        {
+            string query = $"SELECT Password FROM {tableName} WHERE Username = @Username";
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Username", username);
+                connection.Open();
 
-        if (username == correctUsername && password == correctPassword)
-        {
-            Console.WriteLine("Inloggning lyckades!");
-            return true;
+                var result = command.ExecuteScalar();
+                if (result != null)
+                {
+                    string storedPassword = result.ToString();
+
+                    if (storedPassword == password)
+                    {
+                        Console.WriteLine("Inloggning lyckades!");
+                        return true;
+                    }
+                }
+            }
         }
-        else
-        {
-            Console.WriteLine("Felaktigt användarnamn eller lösenord.");
-            return false;
-        }
+
+        Console.WriteLine("Felaktigt användarnamn eller lösenord.");
+        return false;
     }
 }
